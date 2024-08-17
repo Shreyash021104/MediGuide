@@ -3,10 +3,8 @@ import numpy as np
 import pandas as pd
 import pickle
 
-# Flask app
 app = Flask(__name__)
 
-# Load database dataset
 sym_des = pd.read_csv("datasets/symtoms_df.csv")
 precautions = pd.read_csv("datasets/precautions_df.csv")
 workout = pd.read_csv("datasets/workout_df.csv")
@@ -14,10 +12,8 @@ description = pd.read_csv("datasets/description.csv")
 medications = pd.read_csv('datasets/medications.csv')
 diets = pd.read_csv("datasets/diets.csv")
 
-# Load model
 svc = pickle.load(open('models/svc.pkl', 'rb'))
 
-# Custom and helper functions
 def helper(dis):
     desc = description[description['Disease'] == dis]['Description']
     desc = " ".join([w for w in desc])
@@ -80,7 +76,6 @@ diseases_list = {
     35: 'Psoriasis', 27: 'Impetigo'
 }
 
-# Model Prediction function
 def get_predicted_value(patient_symptoms):
     input_vector = np.zeros(len(symptoms_dict))
     for item in patient_symptoms:
@@ -89,7 +84,7 @@ def get_predicted_value(patient_symptoms):
     predicted_index = svc.predict([input_vector])[0]
     return diseases_list.get(predicted_index, 'Unknown Disease')
 
-# Routes
+
 @app.route("/")
 def index():
     return render_template("index.html")
