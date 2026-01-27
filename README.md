@@ -1,83 +1,103 @@
 # MediGuide
 
-Welcome to the MediGuide project! This README file provides detailed information about the MediGuide application, its features, installation guidelines, and how to contribute.
-
-## Table of Contents
-- [About](#about)
-- [Features](#features)
-- [Getting Started](#getting-started)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
-
----
-
-## About
-MediGuide is an application designed to [briefly describe the purpose of MediGuide, e.g., "provide seamless health management," "help users track medical records," etc.].
+A Flask-based web application that helps users diagnose diseases and receive recommendations based on their symptoms. MediGuide leverages trained machine learning models and pre-loaded datasets to predict possible diseases and provide relevant guidance.
 
 ## Features
-Some of the key features of MediGuide include:
-- Feature 1
-- Feature 2
-- Feature 3
+- Symptom-based disease prediction using an SVC machine learning model.
+- Detailed descriptions of predicted diseases.
+- Precautions, medications, diets, and workouts tailored to specific diseases.
+- User-friendly web interface with routes for prediction, contact, developer information, blog, and more.
 
-## Getting Started
-Follow the instructions below to set up and run MediGuide on your system:
+## Setup and Installation
 
-## Installation
-1. Clone this repository:
+### Prerequisites
+- Python 3.x
+- Flask
+- NumPy
+- Pandas
+- Pickle
+- Pre-trained SVC model (`svc.pkl`) and datasets placed in the local `models` and `datasets` folders respectively.
+
+### Installation Steps
+1. Clone the repository:
    ```bash
    git clone https://github.com/Shreyash021104/MediGuide.git
-   ```
-2. Navigate to the project directory:
-   ```bash
    cd MediGuide
    ```
-3. Install dependencies (if applicable):
+
+2. Install the required dependencies:
    ```bash
-   <installation command>
+   pip install -r requirements.txt
    ```
 
-## Usage
-Provide a guide on how to use your project. Examples:
-- How to launch the app
-- Basic commands or operations
+   > **Note:** Create a `requirements.txt` file if it does not exist:
+   > ```
+   > Flask
+   > numpy
+   > pandas
+   > ```
 
-```bash
-<usage command>
+3. Ensure that the following files exist in their respective directories:
+   - `models/svc.pkl` - Pretrained Support Vector Classifier model.
+   - `datasets/symtoms_df.csv` - Symptom dataset.
+   - `datasets/precautions_df.csv` - Precautions dataset.
+   - `datasets/workout_df.csv` - Workout recommendations dataset.
+   - `datasets/description.csv` - Disease descriptions dataset.
+   - `datasets/medications.csv` - Medications dataset.
+   - `datasets/diets.csv` - Dietary recommendations dataset.
+
+### Running the Application
+1. Start the Flask development server:
+   ```bash
+   python main.py
+   ```
+
+2. Open your web browser and navigate to:
+   ```
+   http://127.0.0.1:5000
+   ```
+
+## How to Use the Application
+1. Enter the symptoms in the input field separated by commas (e.g., `headache, fever, cough`).
+2. Click "Predict" to receive the predicted disease and recommendations.
+3. Navigate through other pages, such as "About", "Contact", "Developer", or "Blog", using the navigation bar.
+
+## Project Structure
+```
+MediGuide/
+├── datasets/            # CSV files containing symptoms, precautions, workouts, medications, etc.
+├── models/              # Pre-trained model (svc.pkl).
+├── templates/           # HTML templates for the web UI.
+├── main.py              # Application entry point.
+└── static/              # Static assets.
 ```
 
-## Contributing
-Contributions are welcome! To get started:
-1. Fork the repo
-2. Create a new branch:
-   ```bash
-   git checkout -b feature/YourFeatureName
-   ```
-3. Commit your changes:
-   ```bash
-   git commit -m 'Add some feature'
-   ```
-4. Push to the branch:
-   ```bash
-   git push origin feature/YourFeatureName
-   ```
-5. Open a pull request
+## Core Functions and Logic
 
-Please read the project's contributing guidelines for more details.
+### `helper(dis)`
+- Retrieves detailed information about a specific disease, including:
+  - Description
+  - Precautions
+  - Medications
+  - Dietary recommendations
+  - Suggested workouts
+
+### `get_predicted_value(patient_symptoms)`
+- Processes user-entered symptoms into a vector format.
+- Predicts the disease using the pre-trained SVC model.
+
+### Routes
+- `/`: Main page for symptom input and disease prediction.
+- `/about`: Information about the application.
+- `/contact`: Contact page.
+- `/developer`: Information about the developer.
+- `/blog`: Blog section.
+
+## Author
+- **Shreyash021104**
+
+## Contributing
+Feel free to fork the repository and submit pull requests to suggest improvements or add new features.
 
 ## License
-[Indicate license or state "This project is licensed under the MIT License" or other applicable license.]
-
----
-
-## Contact
-For inquiries, suggestions, or feedback, please reach out to:
-- [Your Name](mailto:your_email@example.com)
-- GitHub: [Shreyash021104](https://github.com/Shreyash021104)
-
----
-
-Thank you for checking out MediGuide! Feel free to star the repository if you found it helpful. Happy coding!
+This project is licensed under the [MIT License](LICENSE).
